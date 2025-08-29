@@ -1,8 +1,7 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Head, useForm, router, Link } from "@inertiajs/vue3";
-import { debounce } from "lodash";
 import Pagination from "@/Components/Pagination.vue";
 import DeleteConfirmation from "@/Components/DeleteConfirmation.vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
@@ -22,7 +21,7 @@ const deleteUserId = ref(null);
 
 watch(
     () => searchForm.search,
-    debounce(function (value) {
+    (value) => {
         router.get(
             route("users.index"),
             { search: value },
@@ -31,7 +30,7 @@ watch(
                 replace: true,
             }
         );
-    }, 300)
+    }
 );
 
 const confirmDelete = (user) => {
